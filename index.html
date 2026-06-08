@@ -159,9 +159,9 @@
     </div>
 
     <script>
-        // API Config with a Stronger CORS Proxy (corsproxy.io)
+        // Highly Stable Proxy - Codetabs
         const API_BASE = 'https://www.1secmail.com/api/v1/';
-        const PROXY = 'https://corsproxy.io/?';
+        const PROXY = 'https://api.codetabs.com/v1/proxy?quest=';
         
         let currentEmail = '';
         let currentLogin = '';
@@ -177,10 +177,9 @@
         const refreshIcon = document.getElementById('refresh-icon');
         const manualRefreshIcon = document.getElementById('manual-refresh-icon');
 
-        // Helper fetch function using the new proxy
         async function fetchAPI(url) {
-            const res = await fetch(PROXY + encodeURIComponent(url));
-            if (!res.ok) throw new Error('Proxy or API Error');
+            const res = await fetch(PROXY + url);
+            if (!res.ok) throw new Error('Network Issue');
             return res.json();
         }
 
@@ -208,14 +207,16 @@
                 updateEmailUI();
                 startCheckingInbox();
             } catch (error) {
-                console.error("API Error", error);
-                emailInput.value = "Network Error - Please refresh page";
+                console.error("Error generating email", error);
+                emailInput.value = "Turn off Adblocker & Refresh";
+                document.getElementById('status-indicator').classList.replace('bg-primary', 'bg-red-500');
             }
             setTimeout(() => refreshIcon.classList.remove('animate-spin'), 500);
         }
 
         function updateEmailUI() {
             emailInput.value = currentEmail;
+            document.getElementById('status-indicator').classList.replace('bg-red-500', 'bg-primary');
         }
 
         function startCheckingInbox() {
