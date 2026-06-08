@@ -159,9 +159,9 @@
     </div>
 
     <script>
-        // API Config with CORS Proxy bypass for GitHub Pages
+        // API Config with a Stronger CORS Proxy (corsproxy.io)
         const API_BASE = 'https://www.1secmail.com/api/v1/';
-        const PROXY = 'https://api.allorigins.win/raw?url=';
+        const PROXY = 'https://corsproxy.io/?';
         
         let currentEmail = '';
         let currentLogin = '';
@@ -177,7 +177,7 @@
         const refreshIcon = document.getElementById('refresh-icon');
         const manualRefreshIcon = document.getElementById('manual-refresh-icon');
 
-        // Helper fetch function using proxy
+        // Helper fetch function using the new proxy
         async function fetchAPI(url) {
             const res = await fetch(PROXY + encodeURIComponent(url));
             if (!res.ok) throw new Error('Proxy or API Error');
@@ -209,7 +209,7 @@
                 startCheckingInbox();
             } catch (error) {
                 console.error("API Error", error);
-                emailInput.value = "Network Error - Please try again";
+                emailInput.value = "Network Error - Please refresh page";
             }
             setTimeout(() => refreshIcon.classList.remove('animate-spin'), 500);
         }
